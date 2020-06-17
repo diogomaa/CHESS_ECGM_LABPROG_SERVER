@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<project name="ChessGameServer" default="info">
+  <property name="src.dir" value="src"/>
+  <property name="build.dir" value="build"/>
+  <property name="jar.dir" value="${build.dir}/jar"/>
+  <property name="jar.name" value="ChessServer.jar"/>
+  <property name="mainclass.name" value="com.tuantai.chessgameserver.Main"/>
+  
+  <target name="info">
+    <echo>Chess Game Server ECGM</echo>
+  </target>
+  
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+  </target>
+   
+  <target name="compile" description="Compile java source files">
+    <mkdir dir="${build.dir}"/>
+	<copy todir="${build.dir}">
+      <fileset dir="${src.dir}">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+	<javac srcdir="${src.dir}" destdir="${build.dir}"/>
+  </target>
+  
+  <target name="jar">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${jar.dir}/${jar.name}" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="${mainclass.name}"/>
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="run">
+    <java jar="${jar.dir}/${jar.name}" fork="true"/>
+  </target>
+   
+</project>
